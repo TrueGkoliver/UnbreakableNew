@@ -3,6 +3,7 @@ package com.gkoliver.unbreakable;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.TieredItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -34,6 +35,11 @@ public class Unbreakable
 	public static void onCraft(PlayerEvent.ItemCraftedEvent event) {
 		ItemStack item = event.getCrafting();
 		if (item.getItem().isDamageable()) {
+			if (item.getItem() instanceof TieredItem) {
+				TieredItem tieritem = (TieredItem) item.getItem();
+				tieritem.getTier();
+				
+			}
 			CompoundNBT nbt = new CompoundNBT();
 			nbt.putBoolean("Unbreakable", true);
 			item.setTag(nbt);
