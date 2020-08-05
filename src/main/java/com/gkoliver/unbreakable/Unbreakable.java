@@ -31,16 +31,11 @@ public class Unbreakable
     private static final Logger LOGGER = LogManager.getLogger();
 
     public Unbreakable() {}
-    @SubscribeEvent
+    //@SubscribeEvent
 	public static void onCraft(PlayerEvent.ItemCraftedEvent event) {
 		ItemStack item = event.getCrafting();
 		if (item.getItem().isDamageable()) {
-			if (item.getItem() instanceof TieredItem) {
-				TieredItem tieritem = (TieredItem) item.getItem();
-				tieritem.getTier();
-				
-			}
-			CompoundNBT nbt = new CompoundNBT();
+			CompoundNBT nbt = item.getTag();
 			nbt.putBoolean("Unbreakable", true);
 			item.setTag(nbt);
 		}
