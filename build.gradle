@@ -3,17 +3,22 @@ buildscript {
         maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
         mavenCentral()
+        maven { url = 'https://dist.creeper.host/Sponge/maven' }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-
-version = '2.2'
+apply plugin: 'org.spongepowered.mixin'
+mixin {
+    add sourceSets.main, "unbreakable.refmap.json"
+}
+version = '2.3'
 group = 'com.gkoliver.gk_unbreakable' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'gk_unbreakable'
 
