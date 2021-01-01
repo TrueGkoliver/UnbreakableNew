@@ -14,7 +14,7 @@ issueTrackerURL="http://my.issue.tracker/" #optional
 # The modid of the mod
 modId="gk_unbreakable" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="2.3" #mandatory
+version="2.4" #mandatory
  # A display name for the mod
 displayName="Unbreakable" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
@@ -27,6 +27,7 @@ displayName="Unbreakable" #mandatory
 #credits="" #optional
 # A text field displayed in the mod UI
 authors="Gkoliver" #optional
+license="All rights reserved"
 # The description text for the mod (multi line!) (#mandatory)
 description='''
 A basic mod that makes all crafted items unbreakable.
@@ -38,7 +39,7 @@ A basic mod that makes all crafted items unbreakable.
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[32.0.0,)" #mandatory
+    versionRange="[35.1.28,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -47,6 +48,6 @@ A basic mod that makes all crafted items unbreakable.
 [[dependencies.gk_unbreakable]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.1]"
+    versionRange="[1.16.4]"
     ordering="NONE"
     side="BOTH"
