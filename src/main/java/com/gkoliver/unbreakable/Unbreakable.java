@@ -2,13 +2,15 @@ package com.gkoliver.unbreakable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.TieredItem;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -29,7 +31,7 @@ public class Unbreakable
 {
 	public static final String MODID = "gk_unbreakable";
     private static final Logger LOGGER = LogManager.getLogger();
-
+	public static final ITag.INamedTag<Item> BREAKABLES = ItemTags.makeWrapperTag(Unbreakable.MODID+":break_list");
     public Unbreakable() {}
     //@SubscribeEvent
 	public static void onCraft(PlayerEvent.ItemCraftedEvent event) {
