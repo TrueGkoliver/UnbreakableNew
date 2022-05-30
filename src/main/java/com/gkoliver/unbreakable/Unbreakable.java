@@ -1,24 +1,23 @@
 package com.gkoliver.unbreakable;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.TieredItem;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tags.ITag;
+import com.gkoliver.unbreakable.config.UnbreakableConfig;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.tags.ITag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,15 +30,9 @@ public class Unbreakable
 {
 	public static final String MODID = "gk_unbreakable";
     private static final Logger LOGGER = LogManager.getLogger();
-	public static final ITag.INamedTag<Item> BREAKABLES = ItemTags.makeWrapperTag(Unbreakable.MODID+":break_list");
-    public Unbreakable() {}
-    //@SubscribeEvent
-	public static void onCraft(PlayerEvent.ItemCraftedEvent event) {
-		ItemStack item = event.getCrafting();
-		if (item.getItem().isDamageable()) {
-			CompoundNBT nbt = item.getTag();
-			nbt.putBoolean("Unbreakable", true);
-			item.setTag(nbt);
-		}
+    private static final ResourceLocation TAG_LOCATION = new ResourceLocation(Unbreakable.MODID,"break_list");
+	public static final TagKey<Item> BREAKABLES = ItemTags.create(TAG_LOCATION);
+    public Unbreakable() {
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, UnbreakableConfig.CONFIGSPEC, "unbreakable-common.toml");
 	}
 }
