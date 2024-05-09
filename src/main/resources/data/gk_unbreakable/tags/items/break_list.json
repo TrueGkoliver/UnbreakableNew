@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values" : [
-    "minecraft:iron_shovel",
     {
       "id": "quark:seed_pouch",
       "required" : false

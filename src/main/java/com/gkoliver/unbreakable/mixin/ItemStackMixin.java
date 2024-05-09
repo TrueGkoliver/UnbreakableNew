@@ -5,6 +5,7 @@ import com.gkoliver.unbreakable.config.UnbreakableConfig;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,16 +26,16 @@ public abstract class ItemStackMixin {
     @Shadow
     public abstract Item getItem();
     @Shadow
-    public abstract boolean m_204117_(TagKey<Item> p_204118_);
+    public abstract boolean is(TagKey<Item> p_204118_);
     @Inject(at=@At("HEAD"), method="hurt", cancellable = true)
-    public void attemptDamageItemI(int amount, Random rand, ServerPlayer damager, CallbackInfoReturnable<Boolean> cir) {
+    public void attemptDamageItemI(int amount, RandomSource rand, ServerPlayer damager, CallbackInfoReturnable<Boolean> cir) {
         if (!UnbreakableConfig.CONFIG.WHITELIST_BLACKLIST.get()) { //blacklist
-            if (!(this.m_204117_(Unbreakable.BREAKABLES))) {
+            if (!(this.is(Unbreakable.BREAKABLES))) {
                 cir.setReturnValue(false);
             }
         }
         else { //whitelist
-            if (this.m_204117_(Unbreakable.BREAKABLES)) {
+            if (this.is(Unbreakable.BREAKABLES)) {
                 cir.setReturnValue(false);
             }
         }
@@ -43,11 +44,11 @@ public abstract class ItemStackMixin {
     @Inject(at=@At("HEAD"), method="isDamageableItem", cancellable = true)
     public void isDamageableItemI(CallbackInfoReturnable<Boolean> cir) {
         if (UnbreakableConfig.CONFIG.WHITELIST_BLACKLIST.get()) { //If it's part of the whitelist...
-            if (this.m_204117_(Unbreakable.BREAKABLES)) {
+            if (this.is(Unbreakable.BREAKABLES)) {
                 cir.setReturnValue(false);
             }
         } else { //Blacklist?
-            if (!this.m_204117_(Unbreakable.BREAKABLES)) {
+            if (!this.is(Unbreakable.BREAKABLES)) {
                 cir.setReturnValue(false);
             }
         }
